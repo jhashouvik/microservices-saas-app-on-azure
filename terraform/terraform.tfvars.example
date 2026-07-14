@@ -1,0 +1,27 @@
+# Example values for REQUIRED, NON-secret variables (no default in variables.tf).
+# Copy to terraform.auto.tfvars and fill in real values -- do NOT commit that file.
+#
+# Sensitive variables are deliberately NOT listed here. Supply them via:
+#   - TF_VAR_<name> environment variables, or
+#   - a gitignored *.auto.tfvars file, or
+#   - your CI/CD pipeline's secret store (GitHub Actions secrets, Vault, etc.)
+#
+# Sensitive variables used by this project:
+#   sql1_administrator_password  (export TF_VAR_sql1_administrator_password=... )
+
+agw1_name = "REPLACE_ME"
+blob1_pe_name = "REPLACE_ME"
+containerapps1_container_image = "REPLACE_ME"
+defender1_name = "REPLACE_ME"
+dns1_name = "REPLACE_ME"
+firewall1_name = "REPLACE_ME"
+identity1_name = "REPLACE_ME"
+key_vault_id = "REPLACE_ME"
+keyvault1_name = "REPLACE_ME"
+keyvault1_pe_name = "REPLACE_ME"
+policy1_name = "REPLACE_ME"
+redis1_pe_name = "REPLACE_ME"
+resource_group_name = "REPLACE_ME"
+servicebus1_pe_name = "REPLACE_ME"
+sql1_pe_name = "REPLACE_ME"
+tenant_id = "REPLACE_ME"
