@@ -251,7 +251,7 @@ resource "azurerm_identity_center" "identity1" {
 # <<< archly:node:identity1 <<<
 
 # >>> archly:node:monitor1 >>>
-# Azure Monitor (monitoring)
+# Azure Monitor (monitoring) -- belongs to network 'Monitoring' (see resource id 'monitoring' above; wire this resource's subnet/network args to it manually)
 resource "azurerm_log_analytics_workspace" "monitor1" {
   name                = "monitor1"
   resource_group_name = local.resource_group_name
@@ -262,7 +262,7 @@ resource "azurerm_log_analytics_workspace" "monitor1" {
 # <<< archly:node:monitor1 <<<
 
 # >>> archly:node:loganalytics1 >>>
-# Log Analytics (monitoring)
+# Log Analytics (monitoring) -- belongs to network 'Monitoring' (see resource id 'monitoring' above; wire this resource's subnet/network args to it manually)
 resource "azurerm_log_analytics_workspace" "loganalytics1" {
   name                = "loganalytics1"
   resource_group_name = local.resource_group_name
@@ -273,7 +273,7 @@ resource "azurerm_log_analytics_workspace" "loganalytics1" {
 # <<< archly:node:loganalytics1 <<<
 
 # >>> archly:node:appinsights1 >>>
-# Cosmos Db (database.nosql)
+# Cosmos Db (database.nosql) -- belongs to network 'Monitoring' (see resource id 'monitoring' above; wire this resource's subnet/network args to it manually)
 resource "azurerm_cosmosdb_account" "appinsights1" {
   name                = "appinsights1-${local.name_suffix}"
   resource_group_name = local.resource_group_name
@@ -390,3 +390,14 @@ resource "azurerm_private_endpoint" "keyvault1_pe" {
   # and add every required argument before applying.
 }
 # <<< archly:node:keyvault1_pe <<<
+
+# >>> archly:group:monitoring >>>
+# Monitoring (network boundary)
+
+resource "azurerm_virtual_network" "monitoring" {
+  name                = "monitoring"
+  resource_group_name = local.resource_group_name
+  location            = local.location
+  address_space       = [var.monitoring_address_space]
+}
+# <<< archly:group:monitoring <<<
