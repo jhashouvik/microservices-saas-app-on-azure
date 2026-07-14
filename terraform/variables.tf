@@ -163,3 +163,11 @@ variable "keyvault1_pe_name" {
   type        = string
 }
 # <<< archly:node:keyvault1_pe <<<
+
+# >>> archly:group:monitoring >>>
+variable "monitoring_address_space" {
+  description = "Address space for VNet 'Monitoring'"
+  type        = string
+  default     = "10.0.0.0/16"
+}
+# <<< archly:group:monitoring <<<
