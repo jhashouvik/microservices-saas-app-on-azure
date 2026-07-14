@@ -27,6 +27,11 @@
       "id": "azurefirewallsubnet",
       "label": "AzureFirewallSubnet",
       "parent": "vnet1"
+    },
+    {
+      "id": "monitoring",
+      "label": "Monitoring",
+      "parent": null
     }
   ],
   "nodes": [
@@ -122,7 +127,7 @@
       "id": "monitor1",
       "type": "monitoring",
       "label": "Azure Monitor",
-      "group": null,
+      "group": "monitoring",
       "suggested_type": null,
       "suggestion_reason": null
     },
@@ -130,7 +135,7 @@
       "id": "loganalytics1",
       "type": "monitoring",
       "label": "Log Analytics",
-      "group": null,
+      "group": "monitoring",
       "suggested_type": null,
       "suggestion_reason": null
     },
@@ -138,7 +143,7 @@
       "id": "appinsights1",
       "type": "database.nosql",
       "label": "Cosmos Db",
-      "group": null,
+      "group": "monitoring",
       "suggested_type": null,
       "suggestion_reason": null
     },
