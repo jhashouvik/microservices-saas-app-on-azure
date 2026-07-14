@@ -1,0 +1,405 @@
+{
+  "title": "Microservices SaaS App on Azure",
+  "provider": "azure",
+  "direction": "TB",
+  "groups": [
+    {
+      "id": "vnet1",
+      "label": "VNet",
+      "parent": null
+    },
+    {
+      "id": "subnet1",
+      "label": "App Subnet",
+      "parent": "vnet1"
+    },
+    {
+      "id": "subnet2",
+      "label": "Data Subnet",
+      "parent": "vnet1"
+    },
+    {
+      "id": "subnet3",
+      "label": "Private Endpoint Subnet",
+      "parent": "vnet1"
+    },
+    {
+      "id": "azurefirewallsubnet",
+      "label": "AzureFirewallSubnet",
+      "parent": "vnet1"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "user1",
+      "type": "user",
+      "label": "User",
+      "group": null,
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "afd1",
+      "type": "cdn",
+      "label": "Azure Front Door",
+      "group": null,
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "agw1",
+      "type": "network.application_gateway",
+      "label": "App Gateway WAF",
+      "group": "subnet1",
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "containerapps1",
+      "type": "compute.container",
+      "label": "Container Apps",
+      "group": "subnet1",
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "sql1",
+      "type": "database.relational",
+      "label": "Azure SQL",
+      "group": "subnet3",
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "redis1",
+      "type": "database.cache",
+      "label": "Cache for Redis",
+      "group": "subnet3",
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "servicebus1",
+      "type": "queue",
+      "label": "Service Bus",
+      "group": "subnet3",
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "blob1",
+      "type": "storage.object",
+      "label": "Blob Storage",
+      "group": "subnet3",
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "keyvault1",
+      "type": "secrets.manager",
+      "label": "Key Vault",
+      "group": null,
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "dns1",
+      "type": "dns.private",
+      "label": "Private DNS Zone",
+      "group": null,
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "identity1",
+      "type": "auth.identity_center",
+      "label": "Microsoft Entra ID",
+      "group": null,
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "monitor1",
+      "type": "monitoring",
+      "label": "Azure Monitor",
+      "group": null,
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "loganalytics1",
+      "type": "monitoring",
+      "label": "Log Analytics",
+      "group": null,
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "appinsights1",
+      "type": "database.nosql",
+      "label": "Cosmos Db",
+      "group": null,
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "firewall1",
+      "type": "network.security_group",
+      "label": "Azure Firewall",
+      "group": "azurefirewallsubnet",
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "policy1",
+      "type": "governance.policy",
+      "label": "Azure Policy",
+      "group": null,
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "defender1",
+      "type": "security.security_hub",
+      "label": "Defender for Cloud",
+      "group": null,
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "sql1_pe",
+      "type": "network.private_endpoint",
+      "label": "Azure SQL PE",
+      "group": "subnet3",
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "redis1_pe",
+      "type": "network.private_endpoint",
+      "label": "Cache for Redis PE",
+      "group": "subnet3",
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "servicebus1_pe",
+      "type": "network.private_endpoint",
+      "label": "Service Bus PE",
+      "group": "subnet3",
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "blob1_pe",
+      "type": "network.private_endpoint",
+      "label": "Blob Storage PE",
+      "group": "subnet3",
+      "suggested_type": null,
+      "suggestion_reason": null
+    },
+    {
+      "id": "keyvault1_pe",
+      "type": "network.private_endpoint",
+      "label": "Key Vault PE",
+      "group": "subnet3",
+      "suggested_type": null,
+      "suggestion_reason": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "user1",
+      "target": "afd1",
+      "label": "HTTPS",
+      "style": "solid"
+    },
+    {
+      "source": "afd1",
+      "target": "agw1",
+      "label": "HTTPS",
+      "style": "solid"
+    },
+    {
+      "source": "agw1",
+      "target": "containerapps1",
+      "label": "HTTPS",
+      "style": "solid"
+    },
+    {
+      "source": "containerapps1",
+      "target": "sql1",
+      "label": "SQL Queries",
+      "style": "solid"
+    },
+    {
+      "source": "containerapps1",
+      "target": "redis1",
+      "label": "Cache Access",
+      "style": "solid"
+    },
+    {
+      "source": "containerapps1",
+      "target": "servicebus1",
+      "label": "Messages",
+      "style": "solid"
+    },
+    {
+      "source": "containerapps1",
+      "target": "blob1",
+      "label": "File Storage",
+      "style": "solid"
+    },
+    {
+      "source": "containerapps1",
+      "target": "keyvault1",
+      "label": "Secrets Access",
+      "style": "solid"
+    },
+    {
+      "source": "sql1",
+      "target": "dns1",
+      "label": "Private Link",
+      "style": "dashed"
+    },
+    {
+      "source": "redis1",
+      "target": "dns1",
+      "label": "Private Link",
+      "style": "dashed"
+    },
+    {
+      "source": "servicebus1",
+      "target": "dns1",
+      "label": "Private Link",
+      "style": "dashed"
+    },
+    {
+      "source": "blob1",
+      "target": "dns1",
+      "label": "Private Link",
+      "style": "dashed"
+    },
+    {
+      "source": "keyvault1",
+      "target": "dns1",
+      "label": "Private Link",
+      "style": "dashed"
+    },
+    {
+      "source": "containerapps1",
+      "target": "identity1",
+      "label": "Managed Identity",
+      "style": "solid"
+    },
+    {
+      "source": "containerapps1",
+      "target": "firewall1",
+      "label": "Egress Control",
+      "style": "solid"
+    },
+    {
+      "source": "containerapps1",
+      "target": "monitor1",
+      "label": "Logs & Metrics",
+      "style": "solid"
+    },
+    {
+      "source": "containerapps1",
+      "target": "loganalytics1",
+      "label": "Logs & Metrics",
+      "style": "solid"
+    },
+    {
+      "source": "containerapps1",
+      "target": "appinsights1",
+      "label": "App Insights",
+      "style": "solid"
+    },
+    {
+      "source": "vnet1",
+      "target": "policy1",
+      "label": "Policy Enforcement",
+      "style": "dashed"
+    },
+    {
+      "source": "vnet1",
+      "target": "defender1",
+      "label": "Security Posture",
+      "style": "dashed"
+    },
+    {
+      "source": "policy1",
+      "target": "afd1",
+      "label": "Policy Enforcement",
+      "style": "dashed"
+    },
+    {
+      "source": "defender1",
+      "target": "afd1",
+      "label": "Security Posture",
+      "style": "dashed"
+    },
+    {
+      "source": "agw1",
+      "target": "sql1_pe",
+      "label": "Private Link",
+      "style": "dashed"
+    },
+    {
+      "source": "sql1_pe",
+      "target": "sql1",
+      "label": "Private Link",
+      "style": "dashed"
+    },
+    {
+      "source": "agw1",
+      "target": "redis1_pe",
+      "label": "Private Link",
+      "style": "dashed"
+    },
+    {
+      "source": "redis1_pe",
+      "target": "redis1",
+      "label": "Private Link",
+      "style": "dashed"
+    },
+    {
+      "source": "agw1",
+      "target": "servicebus1_pe",
+      "label": "Private Link",
+      "style": "dashed"
+    },
+    {
+      "source": "servicebus1_pe",
+      "target": "servicebus1",
+      "label": "Private Link",
+      "style": "dashed"
+    },
+    {
+      "source": "agw1",
+      "target": "blob1_pe",
+      "label": "Private Link",
+      "style": "dashed"
+    },
+    {
+      "source": "blob1_pe",
+      "target": "blob1",
+      "label": "Private Link",
+      "style": "dashed"
+    },
+    {
+      "source": "agw1",
+      "target": "keyvault1_pe",
+      "label": "Private Link",
+      "style": "dashed"
+    },
+    {
+      "source": "keyvault1_pe",
+      "target": "keyvault1",
+      "label": "Private Link",
+      "style": "dashed"
+    }
+  ],
+  "show_legend": true
+}
